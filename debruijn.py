@@ -50,16 +50,20 @@ def construct_graph(reads, k):
 
 def output_contigs(g):
     """ Perform searching for Eulerian path in the graph to output genome assembly"""
-
-    # Pick starting node (for now, at random)
-    start = g.keys()[0]
+    V = g[0]
+    E = g[1]
+    # Pick starting node (the vertex with zero in degree)
+    start = V.keys()[0]
+    for k in V.keys():
+        if V[k].indegree < V[start].indegree:
+            start = k
 
     contig = start
     current = start
-    while len(g[current]) > 0:
+    while len(E[current]) > 0:
         # Pick the next node to be traversed (for now, at random)
-        next = g[current][0]
-        del g[current][0]
+        next = E[current][0]
+        del E[current][0]
         contig += next.label[-1]
         current = next.label
 
@@ -81,9 +85,9 @@ reads = read_reads(fname)
 
 test = ['bcdefg', 'defghi', 'abcd']
 g = construct_graph(test, 3)
-print_graph(g)
+# print_graph(g)
 # for k in g.keys():
 #   print k, g[k]
 # g = construct_graph(reads)
-# contig = output_contigs(g)
-# print contig
+contig = output_contigs(g)
+print contig
