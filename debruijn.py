@@ -1,4 +1,5 @@
 class Node:
+    """ Class Node to represent a vertex in the de bruijn graph """
     def __init__(self, lab):
         self.label = lab
         self.indegree = 0
@@ -70,6 +71,7 @@ def output_contigs(g):
     return contig
 
 def print_graph(g):
+    """ Print the information in the graph to be (somewhat) presentable """
     V = g[0]
     E = g[1]
     for k in V.keys():
@@ -77,17 +79,4 @@ def print_graph(g):
         print "Edges: "
         for e in E[k]:
             print e.label
-
-# Main script
-fname = 'g200reads.fa'
-reads = read_reads(fname)
-# print reads
-
-test = ['bcdefg', 'defghi', 'abcd']
-g = construct_graph(test, 3)
-# print_graph(g)
-# for k in g.keys():
-#   print k, g[k]
-# g = construct_graph(reads)
-contig = output_contigs(g)
-print contig
+        print
